@@ -6,6 +6,7 @@ end)
 
 function FinishRun()
 	AddTimerBlock( CurrentRun, "done")
+	HadesKillPresentation()
 	ShowRunClearScreen()
 end
 
@@ -33,4 +34,13 @@ ModUtil.WrapBaseFunction( "DoPatches", function(baseFunc)
 	if CurrentRun ~= nil then
 		CurrentRun.CurrentRoom.Encounter = EncounterData.Empty
 	end
+end, NoEnemies)
+
+ModUtil.WrapBaseFunction( "GetPreviousStore", function(baseFunc, args) 
+	--fix crash charlie was getting in styx
+	return nil
+end, NoEnemies)
+
+--dad kill function relies on dad existing, but is used to stop rta timer, so wrap it to do nothing
+ModUtil.WrapBaseFunction( "HadesKillPresentation", function(baseFunc, unit, args)
 end, NoEnemies)
